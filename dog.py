@@ -5,6 +5,15 @@ class Dog:
         self.breed = breed
     def bark(self):
         print('woof!!!')
+
+my_dogs = list()
+
+my_dogs.append(Dog('james', 'husky'))
+my_dogs.append(Dog('james', 'pitbull'))
+
+for dog in my_dogs:
+    dog.bark()
+
     def sit(self):
         print('Sit now!')
     def roll_over(self):
@@ -48,17 +57,13 @@ class Hero:
         pass 
 
 if __name__ == "__main__":
-    #ABILITY TEST
-    ability = Ability('Dubbger', 50)
-
-    my_hero = Hero('John', 200)
-    my_hero.add_ability(ability)
-    print(my_hero.abilities)
-
-    # !!! I  NEED HELP IN MY CURRENT_HEALTH VARIABLE
-    print(my_hero.current_health)
-    
-    ability = Ability('debbuger name', 20)
-    print(ability.name)
+    # If you run this file from the terminal
+    # this block of code is executed.
+    ability = Ability("Great Debugging", 50)
+    another_ability = Ability("Smarty Pants", 90)
+    hero = Hero("Grace Hopper", 200)
+    hero.add_ability(ability)
+    hero.add_ability(another_ability)
+    print(hero.attack())
     
 
