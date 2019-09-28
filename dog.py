@@ -42,8 +42,12 @@ class Hero:
         self.current_health = current_health
         self.armors = list()
         self.abilities = list()
+    #add abilities to the abilities list
     def add_ability(self, ability):
         self.abilities.append(ability)
+    #add armor to the armor list
+    def add_armor(self, armor):
+        return self.armors.append(armor)
         
     def attack(self):
         total_attack = 0 
@@ -52,6 +56,10 @@ class Hero:
         return total_attack
         pass
     def defend(self, incoming_damage):
+        damage = 0
+        for armor in self.armors:
+            damage += armor.block()
+        return damage
         pass
     def take_damage(self,damage):
         pass
