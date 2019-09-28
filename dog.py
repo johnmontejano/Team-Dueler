@@ -46,6 +46,10 @@ class Hero:
         self.abilities.append(ability)
         
     def attack(self):
+        total_attack = 0 
+        for ability in self.abilities:
+            total_attack += ability.attack()
+        return total_attack
         pass
     def defend(self, incoming_damage):
         pass
@@ -65,5 +69,6 @@ if __name__ == "__main__":
     hero.add_ability(ability)
     hero.add_ability(another_ability)
     print(hero.attack())
+    #ERROR:Attack method Value returns none
     
 
