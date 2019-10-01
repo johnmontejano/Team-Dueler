@@ -36,10 +36,10 @@ class Armor:
         
   
 class Hero:
-    def __init__(self, name, current_health, starting_health = 100):
+    def __init__(self, name, current_health = 100, starting_health = 100):
         self.name = name 
         self.starting_health = starting_health
-        self.current_health = current_health
+        self.current_health = self.starting_health
         self.armors = list()
         self.abilities = list()
     #add abilities to the abilities list
@@ -76,12 +76,24 @@ class Hero:
         while self.is_alive() and opponent.is_alive():
             self.take_damage(opponent.attack())
             opponent.take_damage(self.attack())
-        
-        pass 
+        if self.current_health > opponent.current_health:
+            result += self.name
+        else:
+            result += opponent.name 
+
+        print(result + ' You Win!')
+
+    
     
 if __name__ == "__main__":
-    hero = Hero("Grace Hopper", 200)
-    hero.take_damage(150)
-    print(hero.is_alive())
-    hero.take_damage(20)
-    print(hero.is_alive())
+    hero1 = Hero("Wonder Woman")
+    hero2 = Hero("Dumbledore")
+    ability1 = Ability("Super Speed", 300)
+    ability2 = Ability("Super Eyes", 130)
+    ability3 = Ability("Wizard Wand", 80)
+    ability4 = Ability("Wizard Beard", 20)
+    hero1.add_ability(ability1)
+    hero1.add_ability(ability2)
+    hero2.add_ability(ability3)
+    hero2.add_ability(ability4)
+    hero1.fight(hero2)
