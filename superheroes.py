@@ -23,14 +23,19 @@ class Armor:
         
   
 class Hero:
-    def __init__(self, name, current_health = 100, starting_health=100):
+    def __init__(self, name):
         self.name = name 
-        self.starting_health = starting_health
+        self.starting_health = 100
         self.current_health = self.starting_health
         self.armors = list()
         self.abilities = list()
         self.kills = 0
         self.deaths = 0
+    def add_weapon(self, weapon):
+        self.abilities.append(weapon)
+        #add armor to the armor list
+    def add_armor(self, armor):
+        self.armors.append(armor)
     #add kill and death depending on num_kills and num_deaths
     def add_kills(self, num_kills):
          self.kills += num_kills
@@ -39,9 +44,7 @@ class Hero:
     #add abilities to the abilities list
     def add_ability(self, ability):
         self.abilities.append(ability)
-    #add armor to the armor list
-    def add_armor(self, armor):
-        return self.armors.append(armor)
+    
     #runs a loop through abilities list and adds total attack
     def attack(self):
         total_attack = 0 
@@ -95,11 +98,10 @@ class Team:
             return 0
     def add_hero(self, hero):
         self.heroes.append(hero)
-          
+           
     def view_heroes(self):
         print([hero for hero in self.heroes])
-
-    # Keep all your current code, but add these methods
+    #attack, revive, and stat methods here:
     def attack(self, other_team):
         first_hero = random.choice(self.heroes)
         second_hero = random.choice(other_team.heroes)
@@ -117,9 +119,51 @@ class Team:
         for hero in self.heroes:
            print(hero.name, hero.kills/hero.deaths)
 
+#arena class 
+class Arena:
+    def __init__(self):
+        self.team1 = Team('DC')
+        self.team2 = Team('Marvel')
+    #asks user for name and damage magnitude for weapon, armor, and ability
+    def create_ability(self):
+        skill = input('Enter ability: ')
+        max_damage = int(input('Enter ability magnitude: '))
+        ability = Ability(skill, max_damage)
+        return ability
+    def create_weapon(self):
+        name = input('Enter weapon name: ')
+        max_damage = int(input('Enter weapon damage: '))
+        weapon = Weapon(name, max_damage)
+    def create_armor(self):
+        name = input('Enter armor name: ')
+        max_damage = int(input('Enter armor damage: '))
+        armor = Armor(name, max_damage)
+    def create_hero(self):
+        name = input('Enter Hero Name: ')
+        hero = Hero(name)
+        selection = ['abilities', 'armor', 'weapons']
+        index = 0
+        while index < 3:
+            user_response = input('Do you want ' + selection[index] + ". (Y/N)")
+            if index == 0 and user_response.lower() == 'y':
+                hero.add_armor(self.create_armor())
+            elif index == 1 and user_response.lower() == 'y':
+                hero.add_weapon(self.create_weapon())
+            elif index == 2 and user_response.lower() == 'y':
+                hero.add_ability(self.create_ability())
+            else:
+                index += 1
+            if len(hero.abilities) == 0 and index == 3:
+                print('You need at least one ability!')
+                index = 2
+        return hero
+            
+    
+    
+
 def capture_console_output(function_body):
     # _io.StringIO object
-    string_io = io.StringIO()
+    string_io = io.StringIO() 
     sys.stdout = string_io
     function_body()
     sys.stdout = sys.__stdout__
