@@ -31,6 +31,7 @@ class Hero:
         self.abilities = list()
         self.kills = 0
         self.deaths = 0
+    #add kill and death depending on num_kills and num_deaths
     def add_kills(self, num_kills):
          self.kills += num_kills
     def add_deaths(self, num_deaths):
@@ -71,8 +72,11 @@ class Hero:
             opponent.take_damage(self.attack())
         if self.current_health > opponent.current_health:
             result += self.name
+            opponent.add_deaths(1)
         else:
             result += opponent.name 
+            opponent.add_kills(1)
+            self.add_deaths(1)
 
         print(result + ' You Win!')
 class Weapon(Ability):
@@ -95,6 +99,23 @@ class Team:
     def view_heroes(self):
         print([hero for hero in self.heroes])
 
+    # Keep all your current code, but add these methods
+    def attack(self, other_team):
+        first_hero = random.choice(self.heroes)
+        second_hero = random.choice(other_team.heroes)
+        ''' Battle each team against each other.'''
+        # TODO: Randomly select a living hero from each team and have
+        # them fight until one or both teams have no surviving heroes.
+        # Hint: Use the fight method in the Hero class.
+        pass
+    #revive every hero in list
+    def revive_heroes(self, health=100):
+        for hero in self.heroes:
+            hero.current_health = health
+    #loop through hero list to print hero name and the ratio of kills to deaths
+    def stats(self):
+        for hero in self.heroes:
+           print(hero.name, hero.kills/hero.deaths)
 
 def capture_console_output(function_body):
     # _io.StringIO object
