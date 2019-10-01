@@ -48,35 +48,40 @@ class Hero:
     #add armor to the armor list
     def add_armor(self, armor):
         return self.armors.append(armor)
-        
+    #runs a loop through abilities list and adds total attack
     def attack(self):
         total_attack = 0 
         for ability in self.abilities:
             total_attack += ability.attack()
         return total_attack
-        pass
-    def defend(self, incoming_damage):
+        
+    #runs a loop through armors list and adds total damage
+    def defend(self):
         damage = 0
         for armor in self.armors:
             damage += armor.block()
         return damage
-        pass
+        
+    # current health minus damage_total
     def take_damage(self,damage):
+        damage_total = damage - self.defend()
+        self.current_health -= damage_total
         pass
+    #return false if current health is > 0
     def is_alive(self):
-        pass
-    def fight(self, Hero):
+        return self.current_health > 0 == False
+    #fight method    
+    def fight(self, opponent):
+        result = ""
+        while self.is_alive() and opponent.is_alive():
+            self.take_damage(opponent.attack())
+            opponent.take_damage(self.attack())
+        
         pass 
-
-if __name__ == "__main__":
-    # If you run this file from the terminal
-    # this block of code is executed.
-    ability = Ability("Great Debugging", 50)
-    another_ability = Ability("Smarty Pants", 90)
-    hero = Hero("Grace Hopper", 200)
-    hero.add_ability(ability)
-    hero.add_ability(another_ability)
-    print(hero.attack())
-    #ERROR:Attack method Value returns none
     
-
+if __name__ == "__main__":
+    hero = Hero("Grace Hopper", 200)
+    hero.take_damage(150)
+    print(hero.is_alive())
+    hero.take_damage(20)
+    print(hero.is_alive())
