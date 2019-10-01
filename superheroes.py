@@ -157,10 +157,26 @@ class Arena:
                 print('You need at least one ability!')
                 index = 2
         return hero
-            
-    
-    
+    def build_team_one(self):
+        name = input('Enter name for team one: ')
+        self.team1 = Team(name)
+        heroes = int(input('Enter number of heroes on team one: '))
 
+        for i in range(heroes):
+            hero = self.create_hero()
+            self.team1.add_hero(hero)
+
+    def build_team_two(self):
+        name = input('Enter name for team two: ')
+        self.team2 = Team(name)
+        heroes = int(input('Enter number of heroes on team one: '))
+
+        for i in range(heroes):
+            hero = self.create_hero()
+            self.team2.add_hero(hero)
+    def team_battle(self):
+        self.team1.attack(self.team2)
+    
 def capture_console_output(function_body):
     # _io.StringIO object
     string_io = io.StringIO() 
